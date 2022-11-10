@@ -1,0 +1,20 @@
+[package]
+name = "systems"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["rlib", "dylib"]
+
+[dependencies]
+bevy = { version = "0.8.1" }
+bevy_egui = "0.16.1"
+bevy-inspector-egui = "0.13.0"
+bevy_diagnostic_visualizer = "0.1.0"
+components = { path = "../components" }
+log = "0.4.17"
+rand = "0.8.5"
+
+[features]
+default = []
+dynamic = ["bevy/dynamic", "components/dynamic"]
