@@ -3,3 +3,5 @@ Cargo.lock
 
 .idea
 /target-web/
+/public/
+node_modules
