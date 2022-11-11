@@ -1,4 +1,6 @@
 use bevy::prelude::*;
+use bevy_egui::{egui, EguiContext, EguiPlugin};
+use bevy_inspector_egui::{InspectorPlugin, WorldInspectorPlugin};
 use wasm_bindgen::prelude::*;
 
 #[cfg(not(feature = "reload"))]
@@ -23,28 +25,17 @@ fn main() {
 	})
 	.insert_resource(ClearColor(Color::rgb(0.24313725, 0.11764706, 0.08627451)))
 	.add_plugins(DefaultPlugins)
+	.add_plugin(EguiPlugin)
 	.add_startup_system(systems::setup)
-	.add_startup_system(network_system)
-	.add_system_set(
-		SystemSet::new()
-			.with_system(player_movement_system)
-			.with_system(player_shooting_system)
-			.with_system(bullet_movement_system)
-			.with_system(bullet_hit_system)
-			.with_system(spawn_other_ships)
-			.with_system(move_other_ships),
-	)
 	.add_system(bevy::window::close_on_esc);
 
-	#[cfg(feature = "debug")]
-	app.add_plugin(bevy::diagnostic::FrameTimeDiagnosticsPlugin);
-	#[cfg(feature = "debug")]
-	app.add_plugin(bevy_diagnostic_visualizer::DiagnosticVisualizerPlugin::default);
+	#[cfg(feature = "reload")]
+	app.add_plugin(WorldInspectorPlugin::new());
+	// .add_plugin(bevy::diagnostic::FrameTimeDiagnosticsPlugin)
+	// .add_plugin(bevy_diagnostic_visualizer::DiagnosticVisualizerPlugin::default());
 
 	app.run();
 }
-
-fn network_system() {}
 
 #[wasm_bindgen]
 extern "C" {
