@@ -32,11 +32,13 @@ pub fn setup(
 		..default()
 	});
 
-	commands.spawn_bundle(PbrBundle {
-		mesh: quad_handle,
-		material: material_handle,
-		..default()
-	});
+	commands
+		.spawn_bundle(PbrBundle {
+			mesh: quad_handle,
+			material: material_handle,
+			..default()
+		})
+		.insert(Name::new("Ground"));
 
 	commands
 		.spawn_bundle(PointLightBundle {
@@ -62,10 +64,13 @@ pub fn setup(
 				}),
 				..default()
 			});
-		});
+		})
+		.insert(Name::new("LightOrb"));
 
-	commands.spawn_bundle(Camera3dBundle {
-		transform: Transform::from_xyz(0.0, 0.0, 5.7).looking_at(Vec3::ZERO, Vec3::Y),
-		..default()
-	});
+	commands
+		.spawn_bundle(Camera3dBundle {
+			transform: Transform::from_xyz(0.0, 0.0, 5.7).looking_at(Vec3::ZERO, Vec3::Y),
+			..default()
+		})
+		.insert(Name::new("Camera"));
 }
