@@ -1,3 +1,4 @@
+pub mod util;
 mod utilities;
 
 use bevy::{
