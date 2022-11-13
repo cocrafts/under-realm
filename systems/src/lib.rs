@@ -34,7 +34,7 @@ pub fn setup(
 	});
 
 	commands
-		.spawn_bundle(PbrBundle {
+		.spawn(PbrBundle {
 			mesh: quad_handle,
 			material: material_handle,
 			..default()
@@ -42,7 +42,7 @@ pub fn setup(
 		.insert(Name::new("Ground"));
 
 	commands
-		.spawn_bundle(PointLightBundle {
+		.spawn(PointLightBundle {
 			transform: Transform::from_xyz(0.0, 0.0, 6.0),
 			point_light: PointLight {
 				intensity: 2000.0,
@@ -69,7 +69,7 @@ pub fn setup(
 		.insert(Name::new("LightOrb"));
 
 	commands
-		.spawn_bundle(Camera3dBundle {
+		.spawn(Camera3dBundle {
 			transform: Transform::from_xyz(0.0, 0.0, 5.7).looking_at(Vec3::ZERO, Vec3::Y),
 			..default()
 		})

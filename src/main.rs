@@ -18,19 +18,20 @@ mod systems_hot {
 
 fn main() {
 	let mut app = App::new();
-
-	app.insert_resource(WindowDescriptor {
-		fit_canvas_to_parent: true,
+	app.add_plugins(DefaultPlugins.set(WindowPlugin {
+		window: WindowDescriptor {
+			fit_canvas_to_parent: true,
+			..default()
+		},
 		..default()
-	})
-	.insert_resource(ClearColor(Color::rgb(0.24313725, 0.11764706, 0.08627451)))
-	.add_plugins(DefaultPlugins)
+	}))
+	.insert_resource(ClearColor(systems::util::config::CLEAR))
 	.add_plugin(EguiPlugin)
 	.add_startup_system(systems::setup)
 	.add_system(bevy::window::close_on_esc);
 
-	#[cfg(feature = "reload")]
-	app.add_plugin(WorldInspectorPlugin::new());
+	// #[cfg(feature = "reload")]
+	// app.add_plugin(WorldInspectorPlugin::new());
 	// .add_plugin(bevy::diagnostic::FrameTimeDiagnosticsPlugin)
 	// .add_plugin(bevy_diagnostic_visualizer::DiagnosticVisualizerPlugin::default());
 
