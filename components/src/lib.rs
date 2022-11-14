@@ -16,3 +16,28 @@ pub struct Player {
 	pub rotation_speed: f32,
 	pub shooting_timer: Option<Timer>,
 }
+
+#[derive(Clone, Copy, PartialEq)]
+pub enum CardType {
+	Hero,
+	Troop,
+	Spell,
+}
+
+#[derive(Clone, Copy, PartialEq)]
+pub enum CardElemental {
+	Metal,
+	Wood,
+	Water,
+	Fire,
+	Earth,
+	Dark,
+	Light,
+}
+
+#[derive(Clone, Copy)]
+pub struct Card {
+	pub rarity: u8,
+	pub elemental: CardElemental,
+	pub card_type: CardType,
+}

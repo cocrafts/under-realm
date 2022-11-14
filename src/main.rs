@@ -1,8 +1,9 @@
+use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::{prelude::*, window::close_on_esc};
 use bevy_egui::EguiPlugin;
-use bevy_mod_picking::DefaultPickingPlugins;
+use bevy_inspector_egui::WorldInspectorPlugin;
+use bevy_spine::SpinePlugin;
 use systems::board::BoardPlugin;
-use systems::developer::DeveloperPlugins;
 use systems::hand::HandPlugin;
 use wasm_bindgen::prelude::*;
 
@@ -21,26 +22,30 @@ mod systems_hot {
 
 fn main() {
 	let mut app = App::new();
-	let default_plugins = DefaultPlugins.set(WindowPlugin {
+	let plugins = DefaultPlugins.set(WindowPlugin {
 		window: WindowDescriptor {
+			position: WindowPosition::At(Vec2::new(10., 300.)),
+			width: 800.,
+			height: 500.,
 			fit_canvas_to_parent: true,
 			..default()
 		},
 		..default()
 	});
 	app.insert_resource(ClearColor(systems::util::config::CLEAR))
-		.add_plugins(default_plugins)
-		.add_plugins(DefaultPickingPlugins)
+		.add_plugins(plugins)
+		.add_plugin(SpinePlugin)
 		.add_plugin(EguiPlugin)
 		.add_plugin(BoardPlugin)
-		.add_plugin(HandPlugin)
-		.add_startup_system(systems::setup)
-		.add_system(close_on_esc);
+		.add_plugin(HandPlugin);
 
 	#[cfg(feature = "reload")]
-	app.add_plugins(DeveloperPlugins);
+	app.add_plugin(WorldInspectorPlugin::new())
+		.add_plugin(FrameTimeDiagnosticsPlugin);
 
-	app.run();
+	app.add_startup_system(systems::setup)
+		.add_system(close_on_esc)
+		.run();
 }
 
 #[wasm_bindgen]
