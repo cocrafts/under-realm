@@ -3,6 +3,7 @@ use bevy_egui::EguiPlugin;
 use bevy_mod_picking::DefaultPickingPlugins;
 use systems::board::BoardPlugin;
 use systems::developer::DeveloperPlugins;
+use systems::hand::HandPlugin;
 use wasm_bindgen::prelude::*;
 
 #[cfg(not(feature = "reload"))]
@@ -30,8 +31,9 @@ fn main() {
 	app.insert_resource(ClearColor(systems::util::config::CLEAR))
 		.add_plugins(default_plugins)
 		.add_plugins(DefaultPickingPlugins)
-		.add_plugin(BoardPlugin)
 		.add_plugin(EguiPlugin)
+		.add_plugin(BoardPlugin)
+		.add_plugin(HandPlugin)
 		.add_startup_system(systems::setup)
 		.add_system(close_on_esc);
 

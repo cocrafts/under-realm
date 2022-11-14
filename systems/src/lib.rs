@@ -1,5 +1,6 @@
 pub mod board;
 pub mod developer;
+pub mod hand;
 pub mod util;
 
 use bevy::{
