@@ -1,45 +1,18 @@
+pub mod board;
+pub mod developer;
 pub mod util;
 
 use bevy::{
 	prelude::*,
-	render::{
-		camera::ScalingMode,
-		mesh::{
-			shape::{Quad, UVSphere},
-			Mesh,
-		},
-	},
-	sprite::collide_aabb,
+	render::mesh::{shape::UVSphere, Mesh},
 };
-use components::*;
-use rand::{thread_rng, Rng};
+use bevy_mod_picking::PickingCameraBundle;
 
 pub fn setup(
 	mut commands: Commands,
-	asset_server: Res<AssetServer>,
 	mut meshes: ResMut<Assets<Mesh>>,
 	mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-	let ground_handle = asset_server.load("textures/surface.png");
-	let quad_width = 8.0;
-	let quad_height = quad_width * 0.59640103;
-	let quad_mesh = Mesh::from(Quad::new(Vec2::new(quad_width, quad_height)));
-	let quad_handle = meshes.add(quad_mesh);
-	let material_handle = materials.add(StandardMaterial {
-		base_color_texture: Some(ground_handle.clone()),
-		perceptual_roughness: 1.0,
-		alpha_mode: AlphaMode::Blend,
-		..default()
-	});
-
-	commands
-		.spawn(PbrBundle {
-			mesh: quad_handle,
-			material: material_handle,
-			..default()
-		})
-		.insert(Name::new("Ground"));
-
 	commands
 		.spawn(PointLightBundle {
 			transform: Transform::from_xyz(0.0, 0.0, 6.0),
@@ -52,7 +25,7 @@ pub fn setup(
 			..default()
 		})
 		.with_children(|builder| {
-			builder.spawn_bundle(PbrBundle {
+			builder.spawn(PbrBundle {
 				mesh: meshes.add(Mesh::from(UVSphere {
 					radius: 0.1,
 					..default()
@@ -72,5 +45,6 @@ pub fn setup(
 			transform: Transform::from_xyz(0.0, 0.0, 5.7).looking_at(Vec3::ZERO, Vec3::Y),
 			..default()
 		})
+		.insert(PickingCameraBundle::default())
 		.insert(Name::new("Camera"));
 }

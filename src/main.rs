@@ -1,7 +1,8 @@
-use bevy::prelude::*;
-use bevy_egui::{egui, EguiContext, EguiPlugin};
-use bevy_inspector_egui::{InspectorPlugin, WorldInspectorPlugin};
-use bevy_mod_picking::{DebugCursorPickingPlugin, DefaultPickingPlugins};
+use bevy::{prelude::*, window::close_on_esc};
+use bevy_egui::EguiPlugin;
+use bevy_mod_picking::DefaultPickingPlugins;
+use systems::board::BoardPlugin;
+use systems::developer::DeveloperPlugins;
 use wasm_bindgen::prelude::*;
 
 #[cfg(not(feature = "reload"))]
@@ -19,24 +20,23 @@ mod systems_hot {
 
 fn main() {
 	let mut app = App::new();
-	app.add_plugins(DefaultPlugins.set(WindowPlugin {
+	let default_plugins = DefaultPlugins.set(WindowPlugin {
 		window: WindowDescriptor {
 			fit_canvas_to_parent: true,
 			..default()
 		},
 		..default()
-	}))
-	.add_plugins(DefaultPickingPlugins)
-	.add_plugin(DebugCursorPickingPlugin)
-	.insert_resource(ClearColor(systems::util::config::CLEAR))
-	.add_plugin(EguiPlugin)
-	.add_startup_system(systems::setup)
-	.add_system(bevy::window::close_on_esc);
+	});
+	app.insert_resource(ClearColor(systems::util::config::CLEAR))
+		.add_plugins(default_plugins)
+		.add_plugins(DefaultPickingPlugins)
+		.add_plugin(BoardPlugin)
+		.add_plugin(EguiPlugin)
+		.add_startup_system(systems::setup)
+		.add_system(close_on_esc);
 
 	#[cfg(feature = "reload")]
-	app.add_plugin(WorldInspectorPlugin::new());
-	// .add_plugin(bevy::diagnostic::FrameTimeDiagnosticsPlugin)
-	// .add_plugin(bevy_diagnostic_visualizer::DiagnosticVisualizerPlugin::default());
+	app.add_plugins(DeveloperPlugins);
 
 	app.run();
 }
