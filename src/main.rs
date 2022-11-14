@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use bevy_egui::{egui, EguiContext, EguiPlugin};
 use bevy_inspector_egui::{InspectorPlugin, WorldInspectorPlugin};
+use bevy_mod_picking::{DebugCursorPickingPlugin, DefaultPickingPlugins};
 use wasm_bindgen::prelude::*;
 
 #[cfg(not(feature = "reload"))]
@@ -25,6 +26,8 @@ fn main() {
 		},
 		..default()
 	}))
+	.add_plugins(DefaultPickingPlugins)
+	.add_plugin(DebugCursorPickingPlugin)
 	.insert_resource(ClearColor(systems::util::config::CLEAR))
 	.add_plugin(EguiPlugin)
 	.add_startup_system(systems::setup)

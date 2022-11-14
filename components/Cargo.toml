@@ -10,6 +10,7 @@ bevy = { version = "0.9.0" }
 bevy_egui = "0.17.0"
 bevy-inspector-egui = "0.14.0"
 bevy_diagnostic_visualizer = "0.1.0"
+bevy_mod_picking = "0.10.0"
 wasm-bindgen = "0.2.83"
 
 [features]
