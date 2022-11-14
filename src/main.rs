@@ -30,8 +30,8 @@ fn main() {
 	.add_startup_system(systems::setup)
 	.add_system(bevy::window::close_on_esc);
 
-	// #[cfg(feature = "reload")]
-	// app.add_plugin(WorldInspectorPlugin::new());
+	#[cfg(feature = "reload")]
+	app.add_plugin(WorldInspectorPlugin::new());
 	// .add_plugin(bevy::diagnostic::FrameTimeDiagnosticsPlugin)
 	// .add_plugin(bevy_diagnostic_visualizer::DiagnosticVisualizerPlugin::default());
 
