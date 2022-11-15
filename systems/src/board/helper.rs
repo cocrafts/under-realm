@@ -1,10 +1,9 @@
+use crate::util::GameTextures;
 use bevy::prelude::*;
 
-pub fn init(mut commands: Commands, asset_server: Res<AssetServer>) {
-	let ground_handle = asset_server.load("textures/ground.png");
-
+pub fn init(mut commands: Commands, game_textures: Res<GameTextures>) {
 	commands.spawn(SpriteBundle {
-		texture: ground_handle,
+		texture: game_textures.ground.clone(),
 		..default()
 	});
 }
