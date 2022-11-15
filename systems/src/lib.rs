@@ -1,14 +1,17 @@
 pub mod board;
+pub mod deck;
 pub mod hand;
 pub mod util;
 
-use crate::util::GameTextures;
+pub use crate::board::BoardPlugin;
+pub use crate::deck::DeckPlugin;
+pub use crate::hand::HandPlugin;
 use bevy::core_pipeline::bloom::BloomSettings;
 use bevy::prelude::*;
 use bevy::render::camera::ScalingMode;
 
 pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-	let game_textures = GameTextures {
+	let game_textures = util::GameTextures {
 		ground: asset_server.load("textures/ground.png"),
 	};
 

@@ -3,8 +3,7 @@ use bevy::{prelude::*, window::close_on_esc};
 use bevy_egui::EguiPlugin;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_spine::SpinePlugin;
-use systems::board::BoardPlugin;
-use systems::hand::HandPlugin;
+use systems::{BoardPlugin, DeckPlugin, HandPlugin};
 use wasm_bindgen::prelude::*;
 
 #[cfg(not(feature = "reload"))]
@@ -37,6 +36,7 @@ fn main() {
 		.add_plugin(SpinePlugin)
 		.add_plugin(EguiPlugin)
 		.add_plugin(BoardPlugin)
+		.add_plugin(DeckPlugin)
 		.add_plugin(HandPlugin);
 
 	#[cfg(feature = "reload")]
