@@ -10,28 +10,20 @@ const DEFAULT_SIZE: f32 = 24.;
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct TemplateFragment {
 	pub text: String,
-	#[serde(default = "default_color")]
-	pub color: [f32; 4],
-	#[serde(default = "default_size")]
-	pub size: f32,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub color: Option<[f32; 4]>,
+	#[serde(skip_serializing_if = "Option::is_none")]
+	pub size: Option<f32>,
 }
 
 impl Default for TemplateFragment {
 	fn default() -> Self {
 		TemplateFragment {
 			text: "?".to_string(),
-			color: DEFAULT_COLOR,
-			size: DEFAULT_SIZE,
+			color: None,
+			size: None,
 		}
 	}
-}
-
-fn default_color() -> [f32; 4] {
-	DEFAULT_COLOR
-}
-
-fn default_size() -> f32 {
-	DEFAULT_SIZE
 }
 
 pub trait Printable {
@@ -45,8 +37,8 @@ impl Printable for Vec<TemplateFragment> {
 			.map(|i| TextSection {
 				style: TextStyle {
 					font: font.clone(),
-					color: Color::from(i.color),
-					font_size: i.size,
+					color: Color::from(i.color.unwrap_or(DEFAULT_COLOR)),
+					font_size: i.size.unwrap_or(DEFAULT_SIZE),
 				},
 				value: i.text.to_string(),
 				..default()
