@@ -23,18 +23,12 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
 	commands.insert_resource(game_textures);
 	commands.insert_resource(fonts);
-	commands.spawn((
-		Camera2dBundle {
-			camera: Camera {
-				hdr: true,
-				..default()
-			},
-			projection: OrthographicProjection {
-				scaling_mode: ScalingMode::FixedVertical(900.),
-				..default()
-			},
+	commands.spawn(Camera2dBundle {
+		camera: Camera { ..default() },
+		projection: OrthographicProjection {
+			scaling_mode: ScalingMode::FixedVertical(900.),
 			..default()
 		},
-		BloomSettings::default(),
-	));
+		..default()
+	});
 }
