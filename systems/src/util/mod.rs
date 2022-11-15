@@ -1,4 +1,4 @@
+pub mod asset;
 pub mod config;
-mod textures;
 
-pub use textures::GameTextures;
+pub use asset::{Fonts, GameTextures};
