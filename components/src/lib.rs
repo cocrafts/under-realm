@@ -2,6 +2,7 @@ pub mod adventurer;
 pub mod attribute;
 pub mod card;
 pub mod event;
+pub mod internal;
 pub mod state;
 
 pub use adventurer::*;

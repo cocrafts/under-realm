@@ -19,8 +19,10 @@ pub enum ClassType {
 #[derive(Component)]
 pub struct Card {
 	pub id: String,
+	pub name: String,
 	pub kind: CardType,
 	pub rarity: usize,
+	pub class: ClassType,
 }
 
 #[derive(Component)]
