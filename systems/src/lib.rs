@@ -1,10 +1,12 @@
 pub mod board;
 pub mod deck;
+pub mod editor;
 pub mod hand;
 pub mod util;
 
 pub use crate::board::BoardPlugin;
 pub use crate::deck::DeckPlugin;
+pub use crate::editor::EditorPlugin;
 pub use crate::hand::HandPlugin;
 use bevy::core_pipeline::bloom::BloomSettings;
 use bevy::prelude::*;

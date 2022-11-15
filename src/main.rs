@@ -3,7 +3,7 @@ use bevy::{prelude::*, window::close_on_esc};
 use bevy_egui::EguiPlugin;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_spine::SpinePlugin;
-use systems::{BoardPlugin, DeckPlugin, HandPlugin};
+use systems::{BoardPlugin, DeckPlugin, EditorPlugin, HandPlugin};
 use wasm_bindgen::prelude::*;
 
 #[cfg(not(feature = "reload"))]
@@ -41,7 +41,8 @@ fn main() {
 
 	#[cfg(feature = "reload")]
 	app.add_plugin(WorldInspectorPlugin::new())
-		.add_plugin(FrameTimeDiagnosticsPlugin);
+		.add_plugin(FrameTimeDiagnosticsPlugin)
+		.add_plugin(EditorPlugin);
 
 	app.add_startup_system(systems::setup)
 		.add_system(close_on_esc)
