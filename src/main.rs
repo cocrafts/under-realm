@@ -21,7 +21,7 @@ mod systems_hot {
 
 fn main() {
 	let mut app = App::new();
-	let plugins = DefaultPlugins.set(WindowPlugin {
+	let defaults = DefaultPlugins.set(WindowPlugin {
 		window: WindowDescriptor {
 			position: WindowPosition::At(Vec2::new(10., 300.)),
 			width: 800.,
@@ -32,7 +32,7 @@ fn main() {
 		..default()
 	});
 	app.insert_resource(ClearColor(systems::util::config::CLEAR))
-		.add_plugins(plugins)
+		.add_plugins(defaults)
 		.add_plugin(SpinePlugin)
 		.add_plugin(EguiPlugin)
 		.add_plugin(BoardPlugin)
