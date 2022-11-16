@@ -1,0 +1,26 @@
+{
+"skeleton": { "hash": "CyUzsk+hUOU", "spine": "4.1.17", "x": -907.16, "y": -579.03, "width": 1800, "height": 1101 },
+"bones": [
+	{ "name": "root", "x": -1.63 }
+],
+"slots": [
+	{ "name": "surface", "bone": "root", "attachment": "textures/ground-surface" },
+	{ "name": "orb", "bone": "root", "attachment": "textures/ground-orb" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"orb": {
+				"textures/ground-orb": { "x": 0.5, "y": 0.5, "rotation": -0.09, "width": 187, "height": 203 }
+			},
+			"surface": {
+				"textures/ground-surface": { "x": -5.54, "y": -28.53, "width": 1800, "height": 1101 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {}
+}
+}

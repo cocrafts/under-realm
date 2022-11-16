@@ -1,0 +1,8 @@
+board.png
+size:1993,1105
+filter:Linear,Linear
+pma:true
+textures/ground-orb
+bounds:1804,900,187,203
+textures/ground-surface
+bounds:2,2,1800,1101

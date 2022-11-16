@@ -9,11 +9,11 @@ edition = "2021"
 
 [dependencies]
 bevy = { version = "0.9.0" }
-bevy_spine = { git = "https://github.com/jabuwu/bevy_spine" }
 bevy_egui = "0.17.0"
 bevy-inspector-egui = "0.14.0"
 bevy_common_assets = "0.4.0"
 bevy_diagnostic_visualizer = "0.1.0"
+bevy_spine = { git = "https://github.com/jabuwu/bevy_spine" }
 components = { path = "components" }
 hot-lib-reloader = { version = "0.6.4", optional = true }
 rand = "0.8.5"
