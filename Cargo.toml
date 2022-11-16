@@ -26,8 +26,6 @@ wasm-bindgen = "0.2.83"
 default = []
 reload = [
   "dep:hot-lib-reloader",
-  # Make sure that the types don't change:
   "components/dynamic",
-  # This is important on windows for avoiding file locking issues:
   "bevy/dynamic",
 ]
