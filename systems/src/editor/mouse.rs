@@ -9,10 +9,11 @@ pub fn editor_mouse_scroll(
 	for event in scroll.iter() {
 		match event.unit {
 			MouseScrollUnit::Line => {
-				println!(
-					"Scroll (line units): vertical: {}, horizontal: {}",
-					event.y, event.x
-				);
+				if let Ok(mut projection) = query.get_single_mut() {
+					if let ScalingMode::FixedVertical(size) = projection.scaling_mode {
+						projection.scaling_mode = ScalingMode::FixedVertical(size + event.y * 20.);
+					}
+				}
 			}
 			MouseScrollUnit::Pixel => {
 				if let Ok(mut projection) = query.get_single_mut() {
