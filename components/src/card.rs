@@ -24,9 +24,3 @@ pub struct Card {
 	pub rarity: usize,
 	pub class: ClassType,
 }
-
-#[derive(Component)]
-pub struct FromPlayer;
-
-#[derive(Component)]
-pub struct FromEnemy;

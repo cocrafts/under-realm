@@ -1,7 +1,53 @@
 {
-"skeleton": { "hash": "ww3QWaaSMQ0", "spine": "4.1.17" },
+"skeleton": { "hash": "2kABxc+Rpj0", "spine": "4.1.17", "x": -200, "y": -279, "width": 400, "height": 558 },
 "bones": [
-	{ "name": "root", "rotation": -3.17, "x": -1.63 }
+	{ "name": "root" },
+	{ "name": "gems", "parent": "root", "y": 257.43 }
+],
+"slots": [
+	{ "name": "visual", "bone": "root", "attachment": "card/anonymous" },
+	{ "name": "front", "bone": "root", "attachment": "card/foil" },
+	{ "name": "s1", "bone": "gems", "attachment": "card/gem" },
+	{ "name": "s2", "bone": "gems", "attachment": "card/gem" },
+	{ "name": "s3", "bone": "gems", "attachment": "card/gem" },
+	{ "name": "s4", "bone": "gems", "attachment": "card/gem" },
+	{ "name": "s5", "bone": "gems", "attachment": "card/gem" },
+	{ "name": "skill", "bone": "root", "attachment": "skill" },
+	{ "name": "name", "bone": "root", "attachment": "name" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"front": {
+				"card/foil": { "path": "card/front", "width": 400, "height": 558 }
+			},
+			"name": {
+				"name": { "type": "point", "y": 227.71 }
+			},
+			"s1": {
+				"card/gem": { "x": -44.34, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
+			},
+			"s2": {
+				"card/gem": { "x": -22.31, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
+			},
+			"s3": {
+				"card/gem": { "x": -0.35, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
+			},
+			"s4": {
+				"card/gem": { "x": 21.6, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
+			},
+			"s5": {
+				"card/gem": { "x": 43.54, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
+			},
+			"skill": {
+				"skill": { "type": "point", "y": -194.7 }
+			},
+			"visual": {
+				"card/anonymous": { "y": -3.22, "scaleX": 0.88, "scaleY": 0.88, "width": 400, "height": 570 }
+			}
+		}
+	}
 ],
 "animations": {
 	"animation": {}
