@@ -17,12 +17,4 @@ pub fn init(mut commands: Commands, skeletons: Res<Skeletons>) {
 			..default()
 		})
 		.insert(Name::new("Board"));
-
-	commands
-		.spawn(SpineBundle {
-			skeleton: skeletons.card.clone(),
-			transform: Transform::from_xyz(0., 0., 0.1),
-			..default()
-		})
-		.insert(Name::new("Card"));
 }

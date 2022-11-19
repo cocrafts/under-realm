@@ -21,6 +21,6 @@ pub struct Card {
 	pub id: String,
 	pub name: String,
 	pub kind: CardType,
-	pub rarity: usize,
+	pub rarity: u8,
 	pub class: ClassType,
 }
