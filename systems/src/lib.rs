@@ -12,9 +12,8 @@ pub use crate::tower::TowerPlugin;
 
 use bevy::prelude::*;
 use bevy::render::camera::ScalingMode;
-use bevy_spine::{prelude::*, rusty_spine::Skin};
-use components::{Fonts, GameTextures, Skeletons, Tower};
-use rand::{seq::SliceRandom, thread_rng};
+use bevy_spine::prelude::*;
+use components::*;
 
 pub fn setup(
 	mut commands: Commands,
@@ -42,8 +41,16 @@ pub fn setup(
 	};
 
 	let game_fonts = Fonts {
-		vollkorn: asset_server.load("fonts/Vollkorn-Regular.ttf"),
-		vollkorn_bold: asset_server.load("fonts/Vollkorn-SemiBold.ttf"),
+		vollkorn: FontSet {
+			regular: asset_server.load("fonts/Vollkorn-Regular.ttf"),
+			medium: asset_server.load("fonts/Vollkorn-Regular.ttf"),
+			bold: asset_server.load("fonts/Vollkorn-Bold.ttf"),
+		},
+		fira: FontSet {
+			regular: asset_server.load("fonts/FiraSansCondensed-Regular.ttf"),
+			medium: asset_server.load("fonts/FiraSansCondensed-Medium.ttf"),
+			bold: asset_server.load("fonts/FiraSansCondensed-Bold.ttf"),
+		},
 	};
 
 	commands.insert_resource(game_skeletons);

@@ -67,10 +67,10 @@ pub fn card_spawned(
 					if bone.data().name() == "skill" {
 						commands.entity(bone_entity).with_children(|parent| {
 							parent.spawn(Text2dBundle {
-								text: skill.template.to_text(fonts.vollkorn_bold.clone()),
+								text: skill.to_text(fonts.fira.clone()),
 								transform: Transform::from_xyz(0., 0., 0.1),
 								text_2d_bounds: Text2dBounds {
-									size: Vec2::new(300.0, 200.0),
+									size: Vec2::new(280.0, 200.0),
 								},
 								..default()
 							});

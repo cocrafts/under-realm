@@ -7,10 +7,17 @@ pub struct GameTextures {
 	pub tower_red: Handle<Image>,
 }
 
+#[derive(Clone)]
+pub struct FontSet {
+	pub regular: Handle<Font>,
+	pub medium: Handle<Font>,
+	pub bold: Handle<Font>,
+}
+
 #[derive(Resource)]
 pub struct Fonts {
-	pub vollkorn: Handle<Font>,
-	pub vollkorn_bold: Handle<Font>,
+	pub vollkorn: FontSet,
+	pub fira: FontSet,
 }
 
 #[derive(Resource)]

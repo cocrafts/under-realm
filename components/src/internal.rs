@@ -1,10 +1,10 @@
-use bevy::asset::Handle;
+use crate::asset::FontSet;
 use bevy::prelude::{Color, VerticalAlign};
-use bevy::text::{Font, HorizontalAlign, Text, TextAlignment, TextSection, TextStyle};
+use bevy::text::{HorizontalAlign, Text, TextAlignment, TextSection, TextStyle};
 use serde::{Deserialize, Serialize};
 
-const DEFAULT_COLOR: [f32; 4] = [1., 1., 1., 1.];
-const DEFAULT_SIZE: f32 = 24.;
+pub const DEFAULT_COLOR: [f32; 4] = [0.1, 0.1, 0.1, 1.];
+pub const DEFAULT_SIZE: f32 = 22.;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct TemplateFragment {
@@ -26,16 +26,16 @@ impl Default for TemplateFragment {
 }
 
 pub trait Printable {
-	fn to_text(&self, font: Handle<Font>) -> Text;
+	fn to_text(&self, font: FontSet) -> Text;
 }
 
 impl Printable for Vec<TemplateFragment> {
-	fn to_text(&self, font: Handle<Font>) -> Text {
+	fn to_text(&self, font: FontSet) -> Text {
 		let sections = self
 			.iter()
 			.map(|i| TextSection {
 				style: TextStyle {
-					font: font.clone(),
+					font: font.medium.clone(),
 					color: Color::from(i.color.unwrap_or(DEFAULT_COLOR)),
 					font_size: i.size.unwrap_or(DEFAULT_SIZE),
 				},
