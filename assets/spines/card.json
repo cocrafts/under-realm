@@ -1,8 +1,10 @@
 {
-"skeleton": { "hash": "2kABxc+Rpj0", "spine": "4.1.17", "x": -200, "y": -279, "width": 400, "height": 558 },
+"skeleton": { "hash": "wE23zZYiFx0", "spine": "4.1.17", "x": -200, "y": -279, "width": 400, "height": 558 },
 "bones": [
 	{ "name": "root" },
-	{ "name": "gems", "parent": "root", "y": 257.43 }
+	{ "name": "gems", "parent": "root", "y": 257.43 },
+	{ "name": "name", "parent": "root", "y": 227.77 },
+	{ "name": "skill", "parent": "root", "y": -193.72 }
 ],
 "slots": [
 	{ "name": "visual", "bone": "root", "attachment": "card/anonymous" },
@@ -11,9 +13,7 @@
 	{ "name": "s2", "bone": "gems", "attachment": "card/gem" },
 	{ "name": "s3", "bone": "gems", "attachment": "card/gem" },
 	{ "name": "s4", "bone": "gems", "attachment": "card/gem" },
-	{ "name": "s5", "bone": "gems", "attachment": "card/gem" },
-	{ "name": "skill", "bone": "root", "attachment": "skill" },
-	{ "name": "name", "bone": "root", "attachment": "name" }
+	{ "name": "s5", "bone": "gems", "attachment": "card/gem" }
 ],
 "skins": [
 	{
@@ -21,9 +21,6 @@
 		"attachments": {
 			"front": {
 				"card/foil": { "path": "card/front", "width": 400, "height": 558 }
-			},
-			"name": {
-				"name": { "type": "point", "y": 227.71 }
 			},
 			"s1": {
 				"card/gem": { "x": -44.34, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
@@ -39,9 +36,6 @@
 			},
 			"s5": {
 				"card/gem": { "x": 43.54, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
-			},
-			"skill": {
-				"skill": { "type": "point", "y": -194.7 }
 			},
 			"visual": {
 				"card/anonymous": { "y": -3.22, "scaleX": 0.88, "scaleY": 0.88, "width": 400, "height": 570 }

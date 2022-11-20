@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "K4XFNbMlaIY", "spine": "4.1.17", "x": -984.41, "y": -626.16, "width": 1950.76, "height": 1196.14 },
+"skeleton": { "hash": "oSziE0xF4o0", "spine": "4.1.17", "x": -996.32, "y": -626.16, "width": 1950.76, "height": 1196.14 },
 "bones": [
 	{ "name": "root", "rotation": 0.04, "x": -1.63 },
 	{ "name": "top-left-chain", "parent": "root", "x": -700.62, "y": 342.27 },
@@ -27,14 +27,15 @@
 	{ "name": "ground/chain-node", "bone": "lef7", "attachment": "ground/chain-node" },
 	{ "name": "ground/chain-node2", "bone": "bone3", "attachment": "ground/chain-node" },
 	{ "name": "ground/chain-node3", "bone": "lef3", "attachment": "ground/chain-node" },
-	{ "name": "ground/chain-node4", "bone": "lef5", "attachment": "ground/chain-node" }
+	{ "name": "ground/chain-node4", "bone": "lef5", "attachment": "ground/chain-node" },
+	{ "name": "ground/light-beam", "bone": "root", "attachment": "ground/light-beam", "blend": "screen" }
 ],
 "skins": [
 	{
 		"name": "default",
 		"attachments": {
 			"base": {
-				"ground/base": { "x": -7.42, "y": -29.2, "width": 1950, "height": 1101 }
+				"ground/base": { "x": -19.33, "y": -30.97, "width": 1950, "height": 1101 }
 			},
 			"base-orb": {
 				"ground/base-orb": { "x": 0.5, "width": 307, "height": 274 }
@@ -71,6 +72,9 @@
 			},
 			"ground/chain-node4": {
 				"ground/chain-node": { "x": 59.06, "y": -1.17, "rotation": 52.78, "width": 102, "height": 105 }
+			},
+			"ground/light-beam": {
+				"ground/light-beam": { "color": "ffffff53", "x": 150.38, "y": 93.69, "width": 1296, "height": 853 }
 			},
 			"orb": {
 				"ground/orb": { "x": 0.5, "y": 0.5, "width": 187, "height": 203 }
