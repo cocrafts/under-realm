@@ -57,6 +57,7 @@ pub enum InspireSource {
 #[derive(Component)]
 pub struct Skill {
 	pub template: Vec<TemplateFragment>,
-	pub trigger: Option<ActivationType>,
+	pub activation: Option<ActivationType>,
+	pub charge: Option<u8>,
 	pub inspire: Option<InspireSource>,
 }

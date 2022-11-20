@@ -1,7 +1,6 @@
 use bevy::asset::Handle;
-use bevy::prelude::Color;
-use bevy::text::{Font, Text, TextSection, TextStyle};
-use bevy::utils::default;
+use bevy::prelude::{Color, VerticalAlign};
+use bevy::text::{Font, HorizontalAlign, Text, TextAlignment, TextSection, TextStyle};
 use serde::{Deserialize, Serialize};
 
 const DEFAULT_COLOR: [f32; 4] = [1., 1., 1., 1.];
@@ -33,7 +32,7 @@ pub trait Printable {
 impl Printable for Vec<TemplateFragment> {
 	fn to_text(&self, font: Handle<Font>) -> Text {
 		let sections = self
-			.into_iter()
+			.iter()
 			.map(|i| TextSection {
 				style: TextStyle {
 					font: font.clone(),
@@ -41,13 +40,15 @@ impl Printable for Vec<TemplateFragment> {
 					font_size: i.size.unwrap_or(DEFAULT_SIZE),
 				},
 				value: i.text.to_string(),
-				..default()
 			})
 			.collect();
 
 		Text {
 			sections,
-			..default()
+			alignment: TextAlignment {
+				vertical: VerticalAlign::Center,
+				horizontal: HorizontalAlign::Center,
+			},
 		}
 	}
 }
