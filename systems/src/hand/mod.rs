@@ -28,7 +28,7 @@ pub fn init(mut commands: Commands, skeletons: Res<Skeletons>) {
 		})
 		.insert(Card {
 			id: "secret".to_string(),
-			name: "Bass".to_string(),
+			name: "Valkyrie".to_string(),
 			class: ClassType::Assassin,
 			kind: CardType::Hero,
 			rarity: 6,
@@ -72,6 +72,22 @@ pub fn card_spawned(
 								text_2d_bounds: Text2dBounds {
 									size: Vec2::new(280.0, 200.0),
 								},
+								..default()
+							});
+						});
+					} else if bone.data().name() == "name" {
+						commands.entity(bone_entity).with_children(|parent| {
+							parent.spawn(Text2dBundle {
+								text: Text::from_section(
+									card.name.to_string(),
+									TextStyle {
+										color: Color::from([0.1, 0.1, 0.1, 1.0]),
+										font: fonts.vollkorn.bold.clone(),
+										font_size: 28.,
+									},
+								)
+								.with_alignment(TextAlignment::CENTER),
+								transform: Transform::from_xyz(0., 0., 0.1),
 								..default()
 							});
 						});

@@ -47,8 +47,8 @@ pub fn setup(
 	let game_fonts = Fonts {
 		vollkorn: FontSet {
 			regular: asset_server.load("fonts/Vollkorn-Regular.ttf"),
-			medium: asset_server.load("fonts/Vollkorn-Regular.ttf"),
-			bold: asset_server.load("fonts/Vollkorn-SemiBold.ttf"),
+			medium: asset_server.load("fonts/Vollkorn-Bold.ttf"),
+			bold: asset_server.load("fonts/Vollkorn-Black.ttf"),
 		},
 		fira: FontSet {
 			regular: asset_server.load("fonts/FiraSansCondensed-Regular.ttf"),
