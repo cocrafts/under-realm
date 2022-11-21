@@ -25,13 +25,17 @@ pub fn setup(
 			asset_server.load("spines/card.json"),
 			asset_server.load("spines/card.atlas"),
 		)),
+		tower: skeletons.add(SkeletonData::new_from_json(
+			asset_server.load("spines/tower.json"),
+			asset_server.load("spines/tower.atlas"),
+		)),
 		board: skeletons.add(SkeletonData::new_from_json(
 			asset_server.load("spines/board.json"),
 			asset_server.load("spines/board.atlas"),
 		)),
-		tower: skeletons.add(SkeletonData::new_from_json(
-			asset_server.load("spines/tower.json"),
-			asset_server.load("spines/tower.atlas"),
+		atmosphere: skeletons.add(SkeletonData::new_from_json(
+			asset_server.load("spines/atmosphere.json"),
+			asset_server.load("spines/atmosphere.atlas"),
 		)),
 	};
 
@@ -44,7 +48,7 @@ pub fn setup(
 		vollkorn: FontSet {
 			regular: asset_server.load("fonts/Vollkorn-Regular.ttf"),
 			medium: asset_server.load("fonts/Vollkorn-Regular.ttf"),
-			bold: asset_server.load("fonts/Vollkorn-Bold.ttf"),
+			bold: asset_server.load("fonts/Vollkorn-SemiBold.ttf"),
 		},
 		fira: FontSet {
 			regular: asset_server.load("fonts/FiraSansCondensed-Regular.ttf"),
