@@ -1,6 +1,7 @@
 pub mod adventurer;
 pub mod asset;
 pub mod attribute;
+pub mod board;
 pub mod card;
 pub mod common;
 pub mod config;
@@ -12,6 +13,7 @@ pub mod tower;
 pub use adventurer::*;
 pub use asset::*;
 pub use attribute::*;
+pub use board::*;
 pub use card::*;
 pub use common::*;
 pub use config::*;

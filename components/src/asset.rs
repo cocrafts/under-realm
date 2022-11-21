@@ -23,6 +23,7 @@ pub struct Fonts {
 #[derive(Resource)]
 pub struct Skeletons {
 	pub card: Handle<SkeletonData>,
-	pub board: Handle<SkeletonData>,
 	pub tower: Handle<SkeletonData>,
+	pub board: Handle<SkeletonData>,
+	pub atmosphere: Handle<SkeletonData>,
 }
