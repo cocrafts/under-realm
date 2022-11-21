@@ -1,10 +1,13 @@
 {
-"skeleton": { "hash": "xATQxNeyjig", "spine": "4.1.17", "x": -200, "y": -279, "width": 400, "height": 558 },
+"skeleton": { "hash": "DuSuzBeIPw8", "spine": "4.1.17", "x": -200, "y": -279, "width": 400, "height": 558 },
 "bones": [
 	{ "name": "root" },
 	{ "name": "gems", "parent": "root", "y": 257.43 },
 	{ "name": "name", "parent": "root", "y": 227.77 },
-	{ "name": "skill", "parent": "root", "y": -196.09 }
+	{ "name": "skill", "parent": "root", "y": -196.09 },
+	{ "name": "health", "parent": "root", "x": -141.54, "y": -115 },
+	{ "name": "defense", "parent": "root", "x": -0.91, "y": -115 },
+	{ "name": "attack", "parent": "root", "x": 141.86, "y": -115 }
 ],
 "slots": [
 	{ "name": "visual", "bone": "root", "attachment": "card/anonymous" },

@@ -17,13 +17,13 @@ pub enum ElementalType {
 pub struct Elemental(ElementalType);
 
 #[derive(Component)]
-pub struct Attack(usize);
+pub struct Attack(pub usize);
 
 #[derive(Component)]
-pub struct Health(usize);
+pub struct Health(pub usize);
 
 #[derive(Component)]
-pub struct Defense(usize);
+pub struct Defense(pub usize);
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum ActivationType {

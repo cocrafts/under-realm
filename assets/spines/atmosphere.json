@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "0kD67rQw9zQ", "spine": "4.1.17", "x": -499.43, "y": -329.86, "width": 1296, "height": 853 },
+"skeleton": { "hash": "XIBupxqnUgI", "spine": "4.1.17", "x": -499.43, "y": -329.86, "width": 1296, "height": 853 },
 "bones": [
 	{ "name": "root" },
 	{ "name": "lightbeam", "parent": "root" }
@@ -12,7 +12,7 @@
 		"name": "default",
 		"attachments": {
 			"lightbeam": {
-				"lightbeam": { "path": "ground/light-beam", "color": "ffffff4f", "x": 148.57, "y": 96.64, "width": 1296, "height": 853 }
+				"lightbeam": { "path": "ground/light-beam", "color": "ffffff2e", "x": 148.57, "y": 96.64, "width": 1296, "height": 853 }
 			}
 		}
 	}

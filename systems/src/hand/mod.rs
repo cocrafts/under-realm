@@ -1,6 +1,6 @@
 use bevy::app::StartupStage;
 use bevy::prelude::*;
-use bevy::text::Text2dBounds;
+use bevy::text::{Text, Text2dBounds, Text2dBundle};
 use bevy_spine::{Spine, SpineBone, SpineBundle, SpineReadyEvent};
 use components::*;
 
@@ -33,6 +33,9 @@ pub fn init(mut commands: Commands, skeletons: Res<Skeletons>) {
 			kind: CardType::Hero,
 			rarity: 6,
 		})
+		.insert(Health(20))
+		.insert(Defense(0))
+		.insert(Attack(12))
 		.insert(Skill {
 			template: skill,
 			inspire: None,
@@ -45,13 +48,23 @@ pub fn init(mut commands: Commands, skeletons: Res<Skeletons>) {
 
 pub fn card_spawned(
 	mut spine_ready_event: EventReader<SpineReadyEvent>,
-	mut spine_query: Query<(&mut Spine, Entity, &Card, &Skill)>,
+	mut spine_query: Query<(
+		&mut Spine,
+		Entity,
+		&Card,
+		&Skill,
+		&Health,
+		&Defense,
+		&Attack,
+	)>,
 	mut spine_bone_query: Query<(&mut SpineBone, Entity)>,
 	mut commands: Commands,
 	fonts: Res<Fonts>,
 ) {
 	for event in spine_ready_event.iter() {
-		if let Ok((mut spine, _, card, skill)) = spine_query.get_mut(event.entity) {
+		if let Ok((mut spine, _, card, skill, health, defense, attack)) =
+			spine_query.get_mut(event.entity)
+		{
 			let gem_count = card.rarity / 3;
 			for level in gem_count..5 {
 				let slot_name = format!("s{}", level + 1).to_string();
@@ -64,36 +77,90 @@ pub fn card_spawned(
 
 			for (bone, bone_entity) in spine_bone_query.iter_mut() {
 				if let Some(bone) = bone.handle.get(&spine.skeleton) {
+					let font = fonts.vollkorn.bold.clone();
+
 					if bone.data().name() == "skill" {
-						commands.entity(bone_entity).with_children(|parent| {
-							parent.spawn(Text2dBundle {
-								text: skill.to_text(fonts.fira.clone()),
-								transform: Transform::from_xyz(0., 0., 0.1),
-								text_2d_bounds: Text2dBounds {
-									size: Vec2::new(280.0, 200.0),
-								},
-								..default()
-							});
-						});
+						let text = skill.to_text(fonts.fira.clone());
+						inject_skill(&mut commands, bone_entity, text);
 					} else if bone.data().name() == "name" {
-						commands.entity(bone_entity).with_children(|parent| {
-							parent.spawn(Text2dBundle {
-								text: Text::from_section(
-									card.name.to_string(),
-									TextStyle {
-										color: Color::from([0.1, 0.1, 0.1, 1.0]),
-										font: fonts.vollkorn.bold.clone(),
-										font_size: 28.,
-									},
-								)
-								.with_alignment(TextAlignment::CENTER),
-								transform: Transform::from_xyz(0., 0., 0.1),
-								..default()
-							});
-						});
+						inject_name(&mut commands, bone_entity, card.name.to_string(), font)
+					} else if bone.data().name() == "health" {
+						inject_attribute(&mut commands, bone_entity, health.0.to_string(), font);
+					} else if bone.data().name() == "defense" {
+						inject_attribute(&mut commands, bone_entity, defense.0.to_string(), font);
+					} else if bone.data().name() == "attack" {
+						inject_attribute(&mut commands, bone_entity, attack.0.to_string(), font);
 					}
 				}
 			}
 		}
 	}
+}
+
+fn inject_skill(commands: &mut Commands, entity: Entity, text: Text) {
+	commands.entity(entity).with_children(|parent| {
+		parent.spawn(Text2dBundle {
+			text,
+			transform: Transform::from_xyz(0., 0., 0.1),
+			text_2d_bounds: Text2dBounds {
+				size: Vec2::new(280.0, 200.0),
+			},
+			..default()
+		});
+	});
+}
+
+fn inject_name(
+	commands: &mut Commands,
+	entity: Entity,
+	value: impl Into<String>,
+	font: Handle<Font>,
+) {
+	commands.entity(entity).with_children(|parent| {
+		parent.spawn(Text2dBundle {
+			text: Text::from_section(
+				value,
+				TextStyle {
+					color: Color::from([0.1, 0.1, 0.1, 1.0]),
+					font,
+					font_size: 28.,
+				},
+			)
+			.with_alignment(TextAlignment::CENTER),
+			transform: Transform::from_xyz(0., 0., 0.1),
+			..default()
+		});
+	});
+}
+
+fn inject_attribute(commands: &mut Commands, entity: Entity, value: String, font: Handle<Font>) {
+	commands.entity(entity).with_children(|parent| {
+		parent.spawn(Text2dBundle {
+			text: Text::from_section(
+				value.clone(),
+				TextStyle {
+					color: Color::from([0., 0., 0., 1.0]),
+					font: font.clone(),
+					font_size: 64.,
+				},
+			)
+			.with_alignment(TextAlignment::CENTER),
+			transform: Transform::from_xyz(0., 0., 0.1),
+			..default()
+		});
+
+		parent.spawn(Text2dBundle {
+			text: Text::from_section(
+				value,
+				TextStyle {
+					color: Color::from([1., 1., 1., 1.0]),
+					font,
+					font_size: 50.,
+				},
+			)
+			.with_alignment(TextAlignment::CENTER),
+			transform: Transform::from_xyz(0., 0., 0.2),
+			..default()
+		});
+	});
 }
