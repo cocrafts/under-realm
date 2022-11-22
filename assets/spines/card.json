@@ -1,22 +1,17 @@
 {
-"skeleton": { "hash": "DuSuzBeIPw8", "spine": "4.1.17", "x": -200, "y": -279, "width": 400, "height": 558 },
+"skeleton": { "hash": "kGqUJVqhMwk", "spine": "4.1.17", "x": -200, "y": -279, "width": 400, "height": 558 },
 "bones": [
 	{ "name": "root" },
-	{ "name": "gems", "parent": "root", "y": 257.43 },
 	{ "name": "name", "parent": "root", "y": 227.77 },
 	{ "name": "skill", "parent": "root", "y": -196.09 },
 	{ "name": "health", "parent": "root", "x": -141.54, "y": -115 },
 	{ "name": "defense", "parent": "root", "x": -0.91, "y": -115 },
-	{ "name": "attack", "parent": "root", "x": 141.86, "y": -115 }
+	{ "name": "attack", "parent": "root", "x": 141.86, "y": -115 },
+	{ "name": "gems", "parent": "root", "x": -44.28, "y": 258.22 }
 ],
 "slots": [
 	{ "name": "visual", "bone": "root", "attachment": "card/anonymous" },
-	{ "name": "front", "bone": "root", "attachment": "card/foil" },
-	{ "name": "s1", "bone": "gems", "attachment": "card/gem" },
-	{ "name": "s2", "bone": "gems", "attachment": "card/gem" },
-	{ "name": "s3", "bone": "gems", "attachment": "card/gem" },
-	{ "name": "s4", "bone": "gems", "attachment": "card/gem" },
-	{ "name": "s5", "bone": "gems", "attachment": "card/gem" }
+	{ "name": "front", "bone": "root", "attachment": "card/foil" }
 ],
 "skins": [
 	{
@@ -24,21 +19,6 @@
 		"attachments": {
 			"front": {
 				"card/foil": { "path": "card/front", "width": 400, "height": 558 }
-			},
-			"s1": {
-				"card/gem": { "x": -44.34, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
-			},
-			"s2": {
-				"card/gem": { "x": -22.31, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
-			},
-			"s3": {
-				"card/gem": { "x": -0.35, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
-			},
-			"s4": {
-				"card/gem": { "x": 21.6, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
-			},
-			"s5": {
-				"card/gem": { "x": 43.54, "y": 0.5, "scaleX": 0.4, "scaleY": 0.4, "width": 32, "height": 33 }
 			},
 			"visual": {
 				"card/anonymous": { "y": -3.22, "scaleX": 0.88, "scaleY": 0.88, "width": 400, "height": 570 }

@@ -5,6 +5,7 @@ use bevy_spine::SkeletonData;
 pub struct GameTextures {
 	pub tower_blue: Handle<Image>,
 	pub tower_red: Handle<Image>,
+	pub gem: Handle<Image>,
 }
 
 #[derive(Clone)]

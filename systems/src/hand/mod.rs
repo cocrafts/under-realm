@@ -60,26 +60,19 @@ pub fn card_spawned(
 	mut spine_bone_query: Query<(&mut SpineBone, Entity)>,
 	mut commands: Commands,
 	fonts: Res<Fonts>,
+	textures: Res<GameTextures>,
 ) {
 	for event in spine_ready_event.iter() {
-		if let Ok((mut spine, _, card, skill, health, defense, attack)) =
+		if let Ok((spine, _, card, skill, health, defense, attack)) =
 			spine_query.get_mut(event.entity)
 		{
-			let gem_count = card.rarity / 3;
-			for level in gem_count..5 {
-				let slot_name = format!("s{}", level + 1).to_string();
-				if let Some(mut node) = spine.skeleton.find_slot_mut(&slot_name) {
-					unsafe {
-						node.set_attachment(None);
-					}
-				}
-			}
-
 			for (bone, bone_entity) in spine_bone_query.iter_mut() {
 				if let Some(bone) = bone.handle.get(&spine.skeleton) {
 					let font = fonts.vollkorn.bold.clone();
 
-					if bone.data().name() == "skill" {
+					if bone.data().name() == "gems" {
+						attach_gems(&mut commands, bone_entity, &textures.gem, card.rarity);
+					} else if bone.data().name() == "skill" {
 						let text = skill.to_text(fonts.fira.clone());
 						inject_skill(&mut commands, bone_entity, text);
 					} else if bone.data().name() == "name" {
@@ -94,6 +87,32 @@ pub fn card_spawned(
 				}
 			}
 		}
+	}
+}
+
+fn attach_gems(commands: &mut Commands, entity: Entity, texture: &Handle<Image>, rarity: u8) {
+	let gem_count = rarity / 3;
+
+	for level in 0..gem_count {
+		commands.entity(entity).with_children(|parent| {
+			parent.spawn(SpriteBundle {
+				texture: texture.clone(),
+				transform: Transform {
+					translation: Vec3 {
+						x: level as f32 * 22.,
+						y: 0.,
+						z: 0.1,
+					},
+					scale: Vec3 {
+						x: 0.4,
+						y: 0.4,
+						z: 1.,
+					},
+					..default()
+				},
+				..default()
+			});
+		});
 	}
 }
 

@@ -42,6 +42,7 @@ pub fn setup(
 	let game_textures = GameTextures {
 		tower_blue: asset_server.load("textures/tower-blue.png"),
 		tower_red: asset_server.load("textures/tower-red.png"),
+    gem: asset_server.load("textures/gem.png"),
 	};
 
 	let game_fonts = Fonts {
