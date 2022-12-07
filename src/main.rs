@@ -4,8 +4,7 @@ mod utils;
 
 use crate::utils::assets::{FontAssets, SpineAssets, TextureAssets};
 #[cfg(feature = "dynamic")]
-use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
-use bevy::prelude::*;
+use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*, window::close_on_esc};
 use bevy_asset_loader::prelude::*;
 use bevy_egui::EguiPlugin;
 #[cfg(feature = "dynamic")]
@@ -16,6 +15,7 @@ use systems::{
 	asset, board::BoardPlugin, card::CardPlugin, editor::EditorPlugin, tower::TowerPlugin,
 };
 use utils::{config, state::*};
+use wasm_bindgen::prelude::*;
 
 fn main() {
 	let mut app = App::new();
@@ -52,7 +52,24 @@ fn main() {
 		.add_plugin(EditorPlugin);
 
 	app.add_enter_system(GameState::Setup, asset::configure)
-		.add_enter_system(GameState::Duel, asset::duel);
+		.add_enter_system(GameState::Duel, asset::duel)
+		.add_system(close_on_esc)
+		.run();
+}
 
-	app.run();
+#[wasm_bindgen]
+extern "C" {
+	#[wasm_bindgen(js_namespace = console)]
+	fn log(s: &str);
+
+	#[wasm_bindgen(js_namespace = console, js_name = log)]
+	fn log_u32(a: u32);
+
+	#[wasm_bindgen(js_namespace = console, js_name = log)]
+	fn log_many(a: &str, b: &str);
+}
+
+#[wasm_bindgen]
+pub fn greet(name: &str) {
+	log(&format!("Hello {}, from inside Rust!!!", name));
 }
