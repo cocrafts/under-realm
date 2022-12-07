@@ -1,7 +1,7 @@
-use bevy::prelude::Component;
+mod attribute;
+mod board;
+mod card;
 
-#[derive(Component)]
-pub struct Board;
-
-#[derive(Component)]
-pub struct Atmosphere;
+pub use attribute::*;
+pub use board::*;
+pub use card::*;
