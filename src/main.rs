@@ -12,7 +12,7 @@ use bevy_egui::EguiPlugin;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_spine::SpinePlugin;
 use iyes_loopless::prelude::*;
-use systems::{asset, board::BoardPlugin};
+use systems::{asset, board::BoardPlugin, editor::EditorPlugin};
 use utils::{config, state::*};
 
 fn main() {
@@ -42,7 +42,8 @@ fn main() {
 
 	#[cfg(feature = "dynamic")]
 	app.add_plugin(WorldInspectorPlugin::new())
-		.add_plugin(FrameTimeDiagnosticsPlugin);
+		.add_plugin(FrameTimeDiagnosticsPlugin)
+		.add_plugin(EditorPlugin);
 
 	app.add_enter_system(GameState::Setup, asset::configure)
 		.add_enter_system(GameState::Duel, asset::duel);
