@@ -1,7 +1,8 @@
+mod components;
 mod systems;
-mod util;
+mod utils;
 
-use crate::util::assets::SpineAssets;
+use crate::utils::assets::SpineAssets;
 #[cfg(feature = "dynamic")]
 use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::prelude::*;
@@ -11,8 +12,8 @@ use bevy_egui::EguiPlugin;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_spine::SpinePlugin;
 use iyes_loopless::prelude::*;
-use systems::{board, kernel};
-use util::{config, state::*};
+use systems::{asset, board::BoardPlugin};
+use utils::{config, state::*};
 
 fn main() {
 	let mut app = App::new();
@@ -36,15 +37,15 @@ fn main() {
 		)
 		.add_plugins(defaults)
 		.add_plugin(SpinePlugin)
-		.add_plugin(EguiPlugin);
+		.add_plugin(EguiPlugin)
+		.add_plugin(BoardPlugin);
 
 	#[cfg(feature = "dynamic")]
 	app.add_plugin(WorldInspectorPlugin::new())
 		.add_plugin(FrameTimeDiagnosticsPlugin);
 
-	app.add_enter_system(GameState::Setup, kernel::setup)
-		.add_enter_system(GameState::Duel, kernel::duel)
-		.add_enter_system(GameState::Duel, board::init);
+	app.add_enter_system(GameState::Setup, asset::configure)
+		.add_enter_system(GameState::Duel, asset::duel);
 
 	app.run();
 }

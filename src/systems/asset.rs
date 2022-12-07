@@ -1,11 +1,11 @@
-use crate::util::assets::{Skeletons, SpineAssets};
-use crate::util::state::GameState;
+use crate::utils::assets::{Skeletons, SpineAssets};
+use crate::utils::state::GameState;
 use bevy::prelude::*;
 use bevy::render::camera::ScalingMode;
 use bevy_spine::prelude::*;
 use iyes_loopless::state::NextState;
 
-pub fn setup(
+pub fn configure(
 	mut commands: Commands,
 	mut skeletons: ResMut<Assets<SkeletonData>>,
 	spines: Res<SpineAssets>,

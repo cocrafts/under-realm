@@ -1,6 +1,16 @@
-use crate::util::assets::Skeletons;
+use crate::components::{Atmosphere, Board};
+use crate::utils::{assets::Skeletons, state::GameState};
 use bevy::prelude::*;
-use bevy_spine::SpineBundle;
+use bevy_spine::{Spine, SpineBundle, SpineReadyEvent};
+use iyes_loopless::prelude::*;
+
+pub struct BoardPlugin;
+impl Plugin for BoardPlugin {
+	fn build(&self, app: &mut App) {
+		app.add_enter_system(GameState::Duel, init)
+			.add_system(atmosphere_spawned.run_in_state(GameState::Duel));
+	}
+}
 
 pub fn init(mut commands: Commands, skeletons: Res<Skeletons>) {
 	commands
@@ -9,7 +19,7 @@ pub fn init(mut commands: Commands, skeletons: Res<Skeletons>) {
 			transform: Transform::from_xyz(0., 28., 0.),
 			..default()
 		})
-		// .insert(Board)
+		.insert(Board)
 		.insert(Name::new("Board"));
 
 	commands
@@ -18,6 +28,19 @@ pub fn init(mut commands: Commands, skeletons: Res<Skeletons>) {
 			transform: Transform::from_xyz(0., 28., 1.0),
 			..default()
 		})
-		// .insert(Atmosphere)
+		.insert(Atmosphere)
 		.insert(Name::new("Atmosphere"));
+}
+
+pub fn atmosphere_spawned(
+	mut spine_ready_event: EventReader<SpineReadyEvent>,
+	mut spine_query: Query<(&mut Spine, &Atmosphere)>,
+) {
+	for event in spine_ready_event.iter() {
+		if let Ok((mut spine, _)) = spine_query.get_mut(event.entity) {
+			if let Some(mut slot) = spine.skeleton.find_slot_mut("lightbeam") {
+				slot.color_mut().set_a(0.1);
+			}
+		}
+	}
 }
