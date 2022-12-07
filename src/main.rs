@@ -2,7 +2,7 @@ mod components;
 mod systems;
 mod utils;
 
-use crate::utils::assets::SpineAssets;
+use crate::utils::assets::{FontAssets, SpineAssets, TextureAssets};
 #[cfg(feature = "dynamic")]
 use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::prelude::*;
@@ -12,7 +12,7 @@ use bevy_egui::EguiPlugin;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_spine::SpinePlugin;
 use iyes_loopless::prelude::*;
-use systems::{asset, board::BoardPlugin, editor::EditorPlugin};
+use systems::{asset, board::BoardPlugin, card::CardPlugin, editor::EditorPlugin};
 use utils::{config, state::*};
 
 fn main() {
@@ -33,12 +33,15 @@ fn main() {
 		.add_loading_state(
 			LoadingState::new(GameState::Loading)
 				.continue_to_state(GameState::Setup)
+				.with_collection::<FontAssets>()
+				.with_collection::<TextureAssets>()
 				.with_collection::<SpineAssets>(),
 		)
 		.add_plugins(defaults)
 		.add_plugin(SpinePlugin)
 		.add_plugin(EguiPlugin)
-		.add_plugin(BoardPlugin);
+		.add_plugin(BoardPlugin)
+		.add_plugin(CardPlugin);
 
 	#[cfg(feature = "dynamic")]
 	app.add_plugin(WorldInspectorPlugin::new())
