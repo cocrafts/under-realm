@@ -1,4 +1,4 @@
-use crate::utils::assets::{Skeletons, SpineAssets};
+use crate::utils::assets::{FontAssets, FontSet, Fonts, Skeletons, SpineAssets};
 use crate::utils::state::GameState;
 use bevy::prelude::*;
 use bevy::render::camera::ScalingMode;
@@ -9,8 +9,9 @@ pub fn configure(
 	mut commands: Commands,
 	mut skeletons: ResMut<Assets<SkeletonData>>,
 	spines: Res<SpineAssets>,
+	fonts: Res<FontAssets>,
 ) {
-	let game_skeletons = Skeletons {
+	commands.insert_resource(Skeletons {
 		card: skeletons.add(SkeletonData::new_from_json(
 			spines.card_json.clone(),
 			spines.card_atlas.clone(),
@@ -27,9 +28,21 @@ pub fn configure(
 			spines.atmosphere_json.clone(),
 			spines.atmosphere_atlas.clone(),
 		)),
-	};
+	});
 
-	commands.insert_resource(game_skeletons);
+	commands.insert_resource(Fonts {
+		vollkorn: FontSet {
+			regular: fonts.fira_regular.clone(),
+			medium: fonts.fira_medium.clone(),
+			bold: fonts.fira_bold.clone(),
+		},
+		fira: FontSet {
+			regular: fonts.fira_regular.clone(),
+			medium: fonts.fira_medium.clone(),
+			bold: fonts.fira_bold.clone(),
+		},
+	});
+
 	commands
 		.spawn(Camera2dBundle {
 			camera: Camera { ..default() },
