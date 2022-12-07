@@ -1,7 +1,3 @@
-[workspace]
-resolver = "2"
-members = ["systems", "components"]
-
 [package]
 name = "murg"
 version = "0.1.0"
@@ -14,18 +10,12 @@ bevy-inspector-egui = "0.14.0"
 bevy_common_assets = "0.4.0"
 bevy_diagnostic_visualizer = "0.1.0"
 bevy_spine = { version = "0.4.0" }
-components = { path = "components" }
-hot-lib-reloader = { version = "0.6.4", optional = true }
+bevy_asset_loader = { version = "0.14.1", features = ["stageless"] }
+iyes_loopless = "0.9.1"
 rand = "0.8.5"
-systems = { path = "systems" }
 serde = "1.0.147"
 serde_json = "1.0.87"
 wasm-bindgen = "0.2.83"
 
 [features]
-default = []
-reload = [
-  "dep:hot-lib-reloader",
-  "components/dynamic",
-  "bevy/dynamic",
-]
+dynamic = ["bevy/dynamic"]
