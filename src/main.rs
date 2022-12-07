@@ -12,7 +12,9 @@ use bevy_egui::EguiPlugin;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_spine::SpinePlugin;
 use iyes_loopless::prelude::*;
-use systems::{asset, board::BoardPlugin, card::CardPlugin, editor::EditorPlugin};
+use systems::{
+	asset, board::BoardPlugin, card::CardPlugin, editor::EditorPlugin, tower::TowerPlugin,
+};
 use utils::{config, state::*};
 
 fn main() {
@@ -41,7 +43,8 @@ fn main() {
 		.add_plugin(SpinePlugin)
 		.add_plugin(EguiPlugin)
 		.add_plugin(BoardPlugin)
-		.add_plugin(CardPlugin);
+		.add_plugin(CardPlugin)
+		.add_plugin(TowerPlugin);
 
 	#[cfg(feature = "dynamic")]
 	app.add_plugin(WorldInspectorPlugin::new())
