@@ -4,16 +4,18 @@ mod utils;
 
 use crate::utils::assets::{FontAssets, LoadingAssets, SpineAssets, TextureAssets};
 #[cfg(feature = "dynamic")]
-use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*, window::close_on_esc};
+use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
+use bevy::{prelude::*, window::close_on_esc};
 use bevy_asset_loader::prelude::*;
 use bevy_egui::EguiPlugin;
 #[cfg(feature = "dynamic")]
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_spine::SpinePlugin;
 use iyes_loopless::prelude::*;
+#[cfg(feature = "dynamic")]
+use systems::editor::EditorPlugin;
 use systems::{
-	asset, board::BoardPlugin, card::CardPlugin, editor::EditorPlugin, loading::LoadingPlugin,
-	tower::TowerPlugin,
+	asset, board::BoardPlugin, card::CardPlugin, loading::LoadingPlugin, tower::TowerPlugin,
 };
 use utils::{config, state::*};
 use wasm_bindgen::prelude::*;

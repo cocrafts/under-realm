@@ -11,7 +11,7 @@ rustflags = ["-C", "link-arg=-fuse-ld=/opt/homebrew/bin/zld", "-Zshare-generics=
 runner = "wasm-server-runner"
 
 [alias]
-dev = "runcc -c"
+dev = "run --features dynamic"
 web = "run --target wasm32-unknown-unknown --target-dir target-web"
 
 [profile.release]

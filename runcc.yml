@@ -1,3 +1,0 @@
-commands:
-  bin: |
-    cargo run --features dynamic
