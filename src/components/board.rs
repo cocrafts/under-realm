@@ -17,3 +17,6 @@ pub struct FromPlayer;
 
 #[derive(Component)]
 pub struct FromEnemy;
+
+#[derive(Component)]
+pub struct LoadingElement;

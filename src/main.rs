@@ -2,7 +2,7 @@ mod components;
 mod systems;
 mod utils;
 
-use crate::utils::assets::{FontAssets, SpineAssets, TextureAssets};
+use crate::utils::assets::{FontAssets, LoadingAssets, SpineAssets, TextureAssets};
 #[cfg(feature = "dynamic")]
 use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*, window::close_on_esc};
 use bevy_asset_loader::prelude::*;
@@ -12,7 +12,8 @@ use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_spine::SpinePlugin;
 use iyes_loopless::prelude::*;
 use systems::{
-	asset, board::BoardPlugin, card::CardPlugin, editor::EditorPlugin, tower::TowerPlugin,
+	asset, board::BoardPlugin, card::CardPlugin, editor::EditorPlugin, loading::LoadingPlugin,
+	tower::TowerPlugin,
 };
 use utils::{config, state::*};
 use wasm_bindgen::prelude::*;
@@ -35,13 +36,13 @@ fn main() {
 		.add_loading_state(
 			LoadingState::new(GameState::Loading)
 				.continue_to_state(GameState::Setup)
-				.with_collection::<FontAssets>()
 				.with_collection::<TextureAssets>()
 				.with_collection::<SpineAssets>(),
 		)
 		.add_plugins(defaults)
 		.add_plugin(SpinePlugin)
 		.add_plugin(EguiPlugin)
+		.add_plugin(LoadingPlugin)
 		.add_plugin(BoardPlugin)
 		.add_plugin(CardPlugin)
 		.add_plugin(TowerPlugin);
@@ -51,7 +52,9 @@ fn main() {
 		.add_plugin(FrameTimeDiagnosticsPlugin)
 		.add_plugin(EditorPlugin);
 
-	app.add_enter_system(GameState::Setup, asset::configure)
+	app.init_collection::<LoadingAssets>()
+		.init_collection::<FontAssets>()
+		.add_enter_system(GameState::Setup, asset::configure)
 		.add_enter_system(GameState::Duel, asset::duel)
 		.add_system(close_on_esc)
 		.run();

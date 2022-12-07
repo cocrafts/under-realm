@@ -37,6 +37,16 @@ pub struct TextureAssets {
 	pub gem: Handle<Image>,
 }
 
+#[derive(AssetCollection, Resource)]
+pub struct LoadingAssets {
+	#[asset(path = "textures/loading-bg.png")]
+	pub bg: Handle<Image>,
+	#[asset(path = "textures/loading-frame.png")]
+	pub frame: Handle<Image>,
+	#[asset(path = "textures/loading-logo.png")]
+	pub logo: Handle<Image>,
+}
+
 #[derive(Resource)]
 pub struct Skeletons {
 	pub card: Handle<SkeletonData>,
