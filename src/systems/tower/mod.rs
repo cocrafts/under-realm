@@ -7,9 +7,9 @@ use iyes_loopless::prelude::*;
 pub struct TowerPlugin;
 impl Plugin for TowerPlugin {
 	fn build(&self, app: &mut App) {
-		app.add_enter_system(GameState::Duel, init)
-			.add_system(player_tower_spawned.run_in_state(GameState::Duel))
-			.add_system(enemy_tower_spawned.run_in_state(GameState::Duel));
+		app.add_enter_system(GameState::InGame, init)
+			.add_system(player_tower_spawned.run_in_state(GameState::InGame))
+			.add_system(enemy_tower_spawned.run_in_state(GameState::InGame));
 	}
 }
 

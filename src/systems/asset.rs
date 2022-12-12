@@ -43,18 +43,7 @@ pub fn configure(
 		},
 	});
 
-	commands
-		.spawn(Camera2dBundle {
-			camera: Camera { ..default() },
-			projection: OrthographicProjection {
-				scaling_mode: ScalingMode::FixedVertical(1100.),
-				..default()
-			},
-			..default()
-		})
-		.insert(Name::new("Primary Camera"));
-
-	commands.insert_resource(NextState(GameState::Duel));
+	commands.insert_resource(NextState(GameState::InGame));
 }
 
 pub fn duel() {

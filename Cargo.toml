@@ -4,18 +4,25 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-bevy = { version = "0.9.0" }
-bevy_egui = "0.17.0"
+bevy = "0.9.1"
+bevy_egui = "0.18.0"
 bevy-inspector-egui = "0.14.0"
 bevy_common_assets = "0.4.0"
 bevy_diagnostic_visualizer = "0.1.0"
 bevy_spine = { version = "0.4.0" }
-bevy_asset_loader = { version = "0.14.1", features = ["stageless"] }
+bevy_asset_loader = "0.14.1"
 iyes_loopless = "0.9.1"
+iyes_progress = "0.7.1"
 rand = "0.8.5"
 serde = "1.0.147"
 serde_json = "1.0.87"
 wasm-bindgen = "0.2.83"
 
 [features]
+default = [
+  "bevy_asset_loader/progress_tracking_stageless",
+  "bevy_asset_loader/stageless",
+  "bevy_asset_loader/progress_tracking",
+  "bevy_asset_loader/2d",
+]
 dynamic = ["bevy/dynamic"]

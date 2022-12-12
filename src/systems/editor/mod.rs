@@ -10,7 +10,7 @@ pub struct EditorPlugin;
 
 impl Plugin for EditorPlugin {
 	fn build(&self, app: &mut App) {
-		app.add_system(editor_mouse_scroll.run_in_state(GameState::Duel));
+		app.add_system(editor_mouse_scroll.run_in_state(GameState::InGame));
 	}
 }
 

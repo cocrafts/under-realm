@@ -7,8 +7,8 @@ use iyes_loopless::prelude::*;
 pub struct BoardPlugin;
 impl Plugin for BoardPlugin {
 	fn build(&self, app: &mut App) {
-		app.add_enter_system(GameState::Duel, init)
-			.add_system(atmosphere_spawned.run_in_state(GameState::Duel));
+		app.add_enter_system(GameState::InGame, init)
+			.add_system(atmosphere_spawned.run_in_state(GameState::InGame));
 	}
 }
 

@@ -1,21 +1,31 @@
 use crate::components::LoadingElement;
 use crate::utils::{assets::*, state::GameState};
-use bevy::prelude::*;
-use bevy::text::Text2dBounds;
+use bevy::{prelude::*, render::camera::ScalingMode, text::Text2dBounds};
 use iyes_loopless::prelude::*;
 
 pub struct LoadingPlugin;
 impl Plugin for LoadingPlugin {
 	fn build(&self, app: &mut App) {
-		app.add_enter_system(GameState::Loading, init)
-			.add_exit_system(GameState::Loading, exit);
+		app.add_enter_system(GameState::AssetLoading, init)
+			.add_exit_system(GameState::AssetLoading, exit);
 	}
 }
 
-pub fn init(mut commands: Commands, loadings: Res<LoadingAssets>, fonts: Res<FontAssets>) {
+pub fn init(mut commands: Commands, assets: Res<LoadingAssets>) {
+	commands
+		.spawn(Camera2dBundle {
+			camera: Camera { ..default() },
+			projection: OrthographicProjection {
+				scaling_mode: ScalingMode::FixedVertical(1100.),
+				..default()
+			},
+			..default()
+		})
+		.insert(Name::new("Primary Camera"));
+
 	commands
 		.spawn(SpriteBundle {
-			texture: loadings.bg.clone(),
+			texture: assets.bg.clone(),
 			transform: Transform {
 				translation: Vec3::new(0., 0., 0.),
 				rotation: Quat::default(),
@@ -28,7 +38,7 @@ pub fn init(mut commands: Commands, loadings: Res<LoadingAssets>, fonts: Res<Fon
 
 	commands
 		.spawn(SpriteBundle {
-			texture: loadings.frame.clone(),
+			texture: assets.frame.clone(),
 			transform: Transform {
 				translation: Vec3::new(0., 0., 0.),
 				rotation: Quat::default(),
@@ -45,7 +55,7 @@ pub fn init(mut commands: Commands, loadings: Res<LoadingAssets>, fonts: Res<Fon
 
 	commands
 		.spawn(SpriteBundle {
-			texture: loadings.logo.clone(),
+			texture: assets.logo.clone(),
 			transform: Transform {
 				translation: Vec3::new(-540., -180., 0.),
 				rotation: Quat::default(),
@@ -62,7 +72,7 @@ pub fn init(mut commands: Commands, loadings: Res<LoadingAssets>, fonts: Res<Fon
 				"Under Realm: Rise of Magic takes place in a chaotic, fragmented world of ATEM where human and other races are constantly fighting each other, to wrench the endless thirst for power, wealth, and gradually take control over ATEM.",
 				TextStyle {
 					color: Color::rgba(1., 0.8, 0.8, 0.8),
-					font: fonts.fira_regular.clone(),
+					font: assets.fira_regular.clone(),
 					font_size: 18.,
 				},
 			),

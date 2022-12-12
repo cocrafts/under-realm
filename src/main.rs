@@ -3,15 +3,16 @@ mod systems;
 mod utils;
 
 use crate::utils::assets::{FontAssets, LoadingAssets, SpineAssets, TextureAssets};
+use bevy::diagnostic::Diagnostics;
 #[cfg(feature = "dynamic")]
 use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::{prelude::*, window::close_on_esc};
 use bevy_asset_loader::prelude::*;
-use bevy_egui::EguiPlugin;
 #[cfg(feature = "dynamic")]
 use bevy_inspector_egui::WorldInspectorPlugin;
 use bevy_spine::SpinePlugin;
 use iyes_loopless::prelude::*;
+use iyes_progress::{ProgressCounter, ProgressPlugin};
 #[cfg(feature = "dynamic")]
 use systems::editor::EditorPlugin;
 use systems::{
@@ -34,16 +35,17 @@ fn main() {
 	});
 
 	app.insert_resource(ClearColor(config::CLEAR))
-		.add_loopless_state(GameState::Loading)
+		.add_loopless_state(GameState::AssetLoading)
 		.add_loading_state(
-			LoadingState::new(GameState::Loading)
-				.continue_to_state(GameState::Setup)
+			LoadingState::new(GameState::AssetLoading)
 				.with_collection::<TextureAssets>()
-				.with_collection::<SpineAssets>(),
+				.with_collection::<SpineAssets>()
+				.with_collection::<FontAssets>(),
 		)
 		.add_plugins(defaults)
+		.add_plugin(FrameTimeDiagnosticsPlugin::default())
+		.add_plugin(ProgressPlugin::new(GameState::AssetLoading).continue_to(GameState::Splash))
 		.add_plugin(SpinePlugin)
-		.add_plugin(EguiPlugin)
 		.add_plugin(LoadingPlugin)
 		.add_plugin(BoardPlugin)
 		.add_plugin(CardPlugin)
@@ -51,13 +53,17 @@ fn main() {
 
 	#[cfg(feature = "dynamic")]
 	app.add_plugin(WorldInspectorPlugin::new())
-		.add_plugin(FrameTimeDiagnosticsPlugin)
 		.add_plugin(EditorPlugin);
 
 	app.init_collection::<LoadingAssets>()
-		.init_collection::<FontAssets>()
-		.add_enter_system(GameState::Setup, asset::configure)
-		.add_enter_system(GameState::Duel, asset::duel)
+		.add_enter_system(GameState::Splash, asset::configure)
+		.add_enter_system(GameState::InGame, asset::duel)
+		.add_system(
+			track_fake_long_task
+				.run_in_state(GameState::AssetLoading)
+				.before("print"),
+		)
+		.add_system(print_progress.label("print"))
 		.add_system(close_on_esc)
 		.run();
 }
@@ -77,4 +83,35 @@ extern "C" {
 #[wasm_bindgen]
 pub fn greet(name: &str) {
 	log(&format!("Hello {}, from inside Rust!!!", name));
+}
+
+const DURATION_LONG_TASK_IN_SECS: f64 = 5.0;
+
+fn track_fake_long_task(time: Res<Time>, progress: Res<ProgressCounter>) {
+	if time.elapsed_seconds_f64() > DURATION_LONG_TASK_IN_SECS {
+		info!("Long task is completed");
+		progress.manually_track(true.into());
+	} else {
+		progress.manually_track(false.into());
+	}
+}
+
+fn print_progress(
+	progress: Option<Res<ProgressCounter>>,
+	diagnostics: Res<Diagnostics>,
+	mut last_done: Local<u32>,
+) {
+	if let Some(progress) = progress.map(|counter| counter.progress()) {
+		if progress.done > *last_done {
+			*last_done = progress.done;
+			info!(
+				"[Frame {}] Changed progress: {:?}",
+				diagnostics
+					.get(FrameTimeDiagnosticsPlugin::FRAME_COUNT)
+					.map(|diagnostic| diagnostic.value().unwrap_or(0.))
+					.unwrap_or(0.),
+				progress
+			);
+		}
+	}
 }

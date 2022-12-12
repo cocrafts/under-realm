@@ -17,8 +17,8 @@ use utils::*;
 pub struct CardPlugin;
 impl Plugin for CardPlugin {
 	fn build(&self, app: &mut App) {
-		app.add_enter_system(GameState::Duel, init)
-			.add_system(card_spawned.run_in_state(GameState::Duel));
+		app.add_enter_system(GameState::InGame, init)
+			.add_system(card_spawned.run_in_state(GameState::InGame));
 	}
 }
 

@@ -45,6 +45,8 @@ pub struct LoadingAssets {
 	pub frame: Handle<Image>,
 	#[asset(path = "textures/loading-logo.png")]
 	pub logo: Handle<Image>,
+	#[asset(path = "fonts/FiraSansCondensed-Regular.ttf")]
+	pub fira_regular: Handle<Font>,
 }
 
 #[derive(Resource)]
